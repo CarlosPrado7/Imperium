@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar sesión</title>
+    <link rel="icon" href="/assets/LogoBarraNav.png" type="image/icon type">
+    <link rel="stylesheet" href="/css/index.css">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+</head>
+<body>
+    <!-- Contenedor para el fondo difuminado -->
+    <div class="background"></div>
+    <!-- Contenedor para el formulario -->
+    <div id="contenedor_login">
+        <form action="#">
+            <!-- Mensajes bienvenida e inicio de sesion -->
+            <div class="logo-bienvenida">
+                <img src="/assets/LogoPag.png" alt="Logo" />
+                <h1>IMPERIUM</h1>
+            </div>
+            <!-- Formulario -->
+            <div class="campos_login">
+                <div class="contenedor_usuario">
+                    <label for="usuario">Usuario</label>
+                    <input type="text" id="usuario" name="usuario" placeholder="Escribe tu usuario" onblur="comprobarUsuario()" />
+                    <div id="comprobacionUsuario" class="comprobacionUsuario"></div>
+                </div>
+                <div class="contenedor_contraseña">
+                    <label for="contraseña">Contraseña</label>
+                    <input type="password" id="contraseña" name="contraseña" placeholder="Escribe tu contraseña" onblur="comprobarPasswd()" />
+                    <div id="comprobacionPasswd" class="comprobacionPasswd"></div>
+                </div>
+            </div>
+            <!-- Boton -->
+            <div class="acceder">
+                <button type="submit" onclick="comprobaciones(event)">Acceder</button>
+            </div>
+            <!-- Enlaces -->
+            <div class="registrate_aqui">
+                <a th:href="@{/registro}">Regístrate aquí</a>
+            </div>
+            <!-- Mensaje responsable -->
+            <hr>
+        </form>
+    </div>
+    <!-- Script JS -->
+    <script src="/js/login.js"></script>
+</body>
+</html>

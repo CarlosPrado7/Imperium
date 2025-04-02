@@ -1,0 +1,90 @@
+body {
+    background: url('/assets/pruebaFondo.png');
+    background-size: cover;
+    font-family: Arial, sans-serif;
+    color: #F3C677;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(13, 12, 31, 0.85);
+    z-index: -1;
+}
+
+#contenedor_login {
+    background: rgba(27, 15, 51, 0.9);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(243, 198, 119, 0.5);
+    width: 350px;
+    text-align: center;
+}
+
+.logo-bienvenida img {
+    width: 100px;
+}
+
+h1 {
+    color: #EFA235;
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-top: 10px;
+    color: #F3C677;
+    text-align: left;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #5B1F64;
+    border-radius: 5px;
+    background: #0D0C1F;
+    color: #F3C677;
+}
+
+input:focus {
+    border-color: #EFA235;
+    outline: none;
+}
+
+button {
+    background: linear-gradient(45deg, #D93C22, #EFA235);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin-top: 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+button:hover {
+    background: linear-gradient(45deg, #EFA235, #D93C22);
+}
+
+.registrate_aqui a {
+    display: block;
+    margin-top: 15px;
+    color: #EFA235;
+    text-decoration: none;
+}
+
+.registrate_aqui a:hover {
+    text-decoration: underline;
+}
