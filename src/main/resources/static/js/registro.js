@@ -37,7 +37,7 @@ btn.addEventListener("click", function (event) {
       // Realizar la solicitud AJAX para guardar los datos
       $.ajax({
         type: "POST",
-        url: "/usuario/registrar",
+        url: "/jugador/registrar",
         contentType: "application/json",
         data: JSON.stringify(formData),
         success: function (response) {
@@ -46,35 +46,17 @@ btn.addEventListener("click", function (event) {
             mostrarModal("El DNI ya está registrado. Por favor, verifica los datos.");
           } else if (response.includes("Error: El nombre de usuario ya está en uso")) {
             mostrarModal("El nombre de usuario ya está en uso. Por favor, elige otro.");
-          } else if (response.includes("USUARIO REGISTRADO CORRECTAMENTE")) {
-            mostrarModal("¡Usuario registrado correctamente!");
+          } else if (response.includes("JUGADOR REGISTRADO CORRECTAMENTE")) {
+            mostrarModal("!Jugador registrado correctamente!");
 
             // Restablecer el formulario
             form.reset();
             btn.textContent = "Registrar";
 
             setTimeout(() => {
-              // EmailJS
+
               btn.textContent = "Registrando...";
 
-              const serviceID = "service_5gckq7i";
-              const templateID = "template_albjoye";
-
-              // Envía el formulario con emailjs
-              emailjs
-                .sendForm(serviceID, templateID, form)
-                .then(() => {
-                  btn.textContent = "Registrar";
-                  form.reset();
-                  mostrarModal("¡Registrado!");
-
-                  // Redirigir al login
-                  window.location.href = "./../login/login.html";
-                })
-                .catch((err) => {
-                  btn.textContent = "Registrar";
-                  mostrarModal("Error: " + JSON.stringify(err));
-                });
               // Redirigir al index (login)
               window.location.pathname = "/";
             }, 3000);
@@ -267,6 +249,32 @@ function comprobarDNI() {
     comprobacion.style.color = "red";
     comprobacion.style.fontSize = "12px";
     comprobacion.style.marginTop = "5px";
+    return false;
+  }
+}
+
+// Comprobar edad
+function comprobarEdad() {
+  const comprobacion = document.getElementById("comprobacionEdad");
+  const fechaNacimiento = new Date(document.getElementById("nacimiento").value);
+  var edad = new Date().getFullYear() - fechaNacimiento.getFullYear();
+
+  const mes = new Date().getMonth() - fechaNacimiento.getMonth();
+  const dia = new Date().getDate() - fechaNacimiento.getDate();
+
+  if (mes < 0 || (mes === 0 && dia < 0)) {
+    edad--;
+  }
+
+  if (edad >= 18) {
+    comprobacion.textContent = "Eres mayor de edad";
+    comprobacion.style.color = "green";
+    comprobacion.style.fontSize = "12px";
+    return true;
+  } else {
+    comprobacion.textContent = "Todavía eres MENOR de edad";
+    comprobacion.style.color = "red";
+    comprobacion.style.fontSize = "12px";
     return false;
   }
 }

@@ -38,7 +38,8 @@
                     </div>
                     <div class="contenedor_nacimiento">
                         <label for="nacimiento">Fecha de nacimiento</label>
-                        <input type="date" id="nacimiento" name="nacimiento" required />
+                        <input type="date" id="nacimiento" name="nacimiento" onblur="comprobarEdad()" required />
+                        <div id="comprobacionEdad"></div>
                    </div>
                     <div class="contenedor_usuario">
                         <label for="usuario">Usuario</label>

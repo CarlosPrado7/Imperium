@@ -120,4 +120,5 @@ public class JugadorEntity {
                 + apellido2 + ", fechaNacimiento=" + fechaNacimiento + ", userName=" + userName + ", email=" + email
                 + ", userPassword=" + userPassword + ", numeroTelefono=" + numeroTelefono + "]";
     }
+
 }
