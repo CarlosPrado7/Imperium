@@ -146,11 +146,13 @@ function comprobarUsuario() {
     comprobacion.textContent = "Usuario disponible";
     comprobacion.style.color = "green";
     comprobacion.style.fontSize = "12px";
+    comprobacion.style.marginTop = "5px";
     return true;
   } else {
     comprobacion.textContent = "Por favor, introduce un nombre de usuario";
     comprobacion.style.color = "red";
     comprobacion.style.fontSize = "12px";
+    comprobacion.style.marginTop = "5px";
     return false;
   }
 }
@@ -165,11 +167,13 @@ function comprobarEmail() {
     comprobacion.textContent = "Correo electrónico correcto";
     comprobacion.style.color = "green";
     comprobacion.style.fontSize = "12px";
+    comprobacion.style.marginTop = "5px";
     return true;
   } else {
     comprobacion.textContent = "Correo electrónico incorrecto";
     comprobacion.style.color = "red";
     comprobacion.style.fontSize = "12px";
+    comprobacion.style.marginTop = "5px";
     return false;
   }
 }
@@ -187,11 +191,13 @@ function comprobarNombre() {
     comprobacionNombre.textContent = "Nombre correcto";
     comprobacionNombre.style.color = "green";
     comprobacionNombre.style.fontSize = "12px";
+    comprobacionNombre.style.marginTop = "5px";
     return true;
   } else {
     comprobacionNombre.textContent = "Nombre incorrecto. No puede contener numeros";
     comprobacionNombre.style.color = "red";
     comprobacionNombre.style.fontSize = "12px";
+    comprobacionNombre.style.marginTop = "5px";
     return false;
   }
 }
@@ -209,11 +215,13 @@ function comprobarApellido1() {
     comprobacionApellido1.textContent = "Apellido correcto";
     comprobacionApellido1.style.color = "green";
     comprobacionApellido1.style.fontSize = "12px";
+    comprobacionApellido1.style.marginTop = "5px";
     return true;
   } else {
     comprobacionApellido1.textContent = "Apellido incorrecto. No puede contener numeros";
     comprobacionApellido1.style.color = "red";
     comprobacionApellido1.style.fontSize = "12px";
+    comprobacionApellido1.style.marginTop = "5px";
     return false;
   }
 }
@@ -231,11 +239,13 @@ function comprobarApellido2() {
     comprobacionApellido2.textContent = "Apellido correcto";
     comprobacionApellido2.style.color = "green";
     comprobacionApellido2.style.fontSize = "12px";
+    comprobacionApellido2.style.marginTop = "5px";
     return true;
   } else {
     comprobacionApellido2.textContent = "Apellido incorrecto. No puede contener numeros";
     comprobacionApellido2.style.color = "red";
     comprobacionApellido2.style.fontSize = "12px";
+    comprobacionApellido2.style.marginTop = "5px";
     return false;
   }
 }
@@ -250,37 +260,13 @@ function comprobarDNI() {
     comprobacion.textContent = "DNI correcto";
     comprobacion.style.color = "green";
     comprobacion.style.fontSize = "12px";
+    comprobacion.style.marginTop = "5px";
     return true;
   } else {
     comprobacion.textContent = "DNI incorrecto";
     comprobacion.style.color = "red";
     comprobacion.style.fontSize = "12px";
-    return false;
-  }
-}
-
-// Comprobar edad
-function comprobarEdad() {
-  const comprobacion = document.getElementById("comprobacionEdad");
-  const fechaNacimiento = new Date(document.getElementById("nacimiento").value);
-  var edad = new Date().getFullYear() - fechaNacimiento.getFullYear();
-
-  const mes = new Date().getMonth() - fechaNacimiento.getMonth();
-  const dia = new Date().getDate() - fechaNacimiento.getDate();
-
-  if (mes < 0 || (mes === 0 && dia < 0)) {
-    edad--;
-  }
-
-  if (edad >= 18) {
-    comprobacion.textContent = "Eres mayor de edad";
-    comprobacion.style.color = "green";
-    comprobacion.style.fontSize = "12px";
-    return true;
-  } else {
-    comprobacion.textContent = "Todavía eres MENOR de edad";
-    comprobacion.style.color = "red";
-    comprobacion.style.fontSize = "12px";
+    comprobacion.style.marginTop = "5px";
     return false;
   }
 }
@@ -294,11 +280,13 @@ function comprobarNumero() {
     comprobacion.textContent = "Número correcto";
     comprobacion.style.color = "green";
     comprobacion.style.fontSize = "12px";
+    comprobacion.style.marginTop = "5px";
     return true;
   } else {
     comprobacion.textContent = "Número incorrecto";
     comprobacion.style.color = "red";
     comprobacion.style.fontSize = "12px";
+    comprobacion.style.marginTop = "5px";
     return false;
   }
 }
@@ -313,21 +301,25 @@ function comprobarPasswd() {
     comprobacion.textContent = "Longitud correcta";
     comprobacion.style.color = "green";
     comprobacion.style.fontSize = "12px";
+    comprobacion.style.marginTop = "5px";
     if (passwd1 === passwd2) {
       comprobacion.textContent = "Las contraseñas coinciden";
       comprobacion.style.color = "green";
       comprobacion.style.fontSize = "12px";
+      comprobacion.style.marginTop = "5px";
       return true;
     } else {
       comprobacion.textContent = "Las contraseñas no coinciden";
       comprobacion.style.color = "red";
       comprobacion.style.fontSize = "12px";
+      comprobacion.style.marginTop = "5px";
       return false;
     }
   } else {
     comprobacion.textContent = "La contraseña debe tener al menos 8 caracteres";
     comprobacion.style.color = "red";
     comprobacion.style.fontSize = "12px";
+    comprobacion.style.marginTop = "5px";
     return false;
   }
 }
