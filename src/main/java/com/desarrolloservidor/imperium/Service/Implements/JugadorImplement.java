@@ -40,7 +40,7 @@ public class JugadorImplement implements JugadorService{
         jugadorEntity.setApellido1(jugador.getApellido1());
         jugadorEntity.setApellido2(jugador.getApellido2());
         jugadorEntity.setFechaNacimiento(java.sql.Date.valueOf(jugador.getFechaNacimiento()));
-        jugadorEntity.setUserName(jugador.getUsername());
+        jugadorEntity.setUserName(jugador.getUserName());
         jugadorEntity.setEmail(jugador.getEmail());
         jugadorEntity.setUserPassword(jugador.getUserPassword());
         jugadorEntity.setNumeroTelefono(jugador.getNumeroTelefono());

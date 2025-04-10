@@ -7,7 +7,7 @@ public class JugadorDTO {
     private String apellido1;
     private String apellido2;
     private String fechaNacimiento;
-    private String username;
+    private String userName;
     private String email;
     private String userPassword;
     private String numeroTelefono;
@@ -42,11 +42,11 @@ public class JugadorDTO {
     public void setFechaNacimiento(String fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
     }
-    public String getUsername() {
-        return username;
+    public String getUserName() {
+        return userName;
     }
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
     public String getEmail() {
         return email;
@@ -69,7 +69,8 @@ public class JugadorDTO {
     @Override
     public String toString() {
         return "JugadorDTO [dni=" + dni + ", nombre=" + nombre + ", apellido1=" + apellido1 + ", apellido2=" + apellido2
-                + ", fechaNacimiento=" + fechaNacimiento + ", username=" + username + ", email=" + email
+                + ", fechaNacimiento=" + fechaNacimiento + ", username=" + userName + ", email=" + email
                 + ", userPassword=" + userPassword + ", numeroTelefono=" + numeroTelefono + "]";
     }
+    
 }

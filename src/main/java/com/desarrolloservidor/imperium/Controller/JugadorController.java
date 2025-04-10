@@ -22,7 +22,7 @@ public class JugadorController {
         if(jugadorService.jugadorExiste(jugador.getDni())){
             return "Error: El DNI ya existe";
         }
-        if(jugadorService.userNameExiste(jugador.getUsername())){
+        if(jugadorService.userNameExiste(jugador.getUserName())){
             return "Error: El nombre de usuario ya existe";
         }
         if(jugadorService.emailExiste(jugador.getEmail())){

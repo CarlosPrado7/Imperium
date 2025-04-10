@@ -57,8 +57,10 @@ btn.addEventListener("click", function (event) {
 
               btn.textContent = "Registrando...";
 
+              console.log("Redirigiendo al login...")
+
               // Redirigir al index (login)
-              window.location.pathname = "/";
+              window.location.href = "./../../templates/index.html";
             }, 3000);
           } else {
             mostrarModal(response);

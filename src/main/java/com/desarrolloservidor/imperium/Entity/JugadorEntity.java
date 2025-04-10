@@ -2,6 +2,8 @@ package com.desarrolloservidor.imperium.Entity;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -26,20 +28,21 @@ public class JugadorEntity {
     @Column(name = "APELLIDO2", length = 100)
     private String apellido2;
 
-    @Column(name = "FECHA_NACIMIENTO", nullable = false)
+    @Column(name = "NACIMIENTO", nullable = false)
     @Temporal(TemporalType.DATE)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private Date fechaNacimiento;
 
-    @Column(name = "USER_NAME", unique = true, nullable = false, length = 100)
+    @Column(name = "USUARIO", unique = true, nullable = false, length = 100)
     private String userName;
 
     @Column(name = "EMAIL", unique = true, nullable = false, length = 100)
     private String email;
 
-    @Column(name = "USER_PASSWORD", nullable = false, length = 255)
+    @Column(name = "CONTRASENA", nullable = false, length = 255)
     private String userPassword;
 
-    @Column(name = "NUMERO_TELEFONO", nullable = false, length = 15)
+    @Column(name = "TELEFONO", nullable = false, length = 15)
     private String numeroTelefono;
 
     public String getDni() {
