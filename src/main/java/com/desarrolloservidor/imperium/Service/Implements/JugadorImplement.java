@@ -48,4 +48,32 @@ public class JugadorImplement implements JugadorService{
         return jugadorRepository.save(jugadorEntity);
     }
 
+    @Override
+    public JugadorEntity comprobarJugador(String userName) {
+        return jugadorRepository.findByUserName(userName).orElse(null);
+    }
+
+    @Override
+    public JugadorDTO validarJugador(JugadorEntity jugadorEntity, String userPassword) {
+        
+        JugadorDTO jugador = null;
+
+        if(jugadorEntity != null && jugadorEntity.getUserPassword().equals(userPassword)){
+            jugador = new JugadorDTO();
+            jugador.setDni(jugadorEntity.getDni());
+            jugador.setNombre(jugadorEntity.getNombre());
+            jugador.setApellido1(jugadorEntity.getApellido1());
+            jugador.setApellido2(jugadorEntity.getApellido2());
+            jugador.setFechaNacimiento(jugadorEntity.getFechaNacimiento().toString());
+            jugador.setUserName(jugadorEntity.getUserName());
+            jugador.setUserPassword(jugadorEntity.getUserPassword());
+            jugador.setEmail(jugadorEntity.getEmail());
+            jugador.setNumeroTelefono(jugadorEntity.getNumeroTelefono());
+        }
+
+        return jugador;
+
+    }
+    
+
 }

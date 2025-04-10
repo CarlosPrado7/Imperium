@@ -12,5 +12,9 @@ public interface JugadorService {
     boolean emailExiste(String email);
 
     JugadorEntity registrarJugador(JugadorDTO jugador);
-    
+
+    JugadorEntity comprobarJugador(String userName);
+
+    JugadorDTO validarJugador(JugadorEntity jugadorEntity, String userPassword);
+
 }
