@@ -1,11 +1,36 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Conquista Express</title>
+  <link rel="stylesheet" href="/css/juego.css" />
+  <link rel="icon" href="/assets/LogoBarraNav.png" type="image/icon type">
 </head>
 <body>
-    <h1>PITOS MORENOS</h1>
+
+  <header>
+    <h1>🌍 Conquista Express</h1>
+    <p class="descripcion">Turna con tu oponente para conquistar territorios adyacentes. ¡El que tenga más al final gana!</p>
+  </header>
+
+  <main>
+    <div id="panel">
+      <div id="turno">Turno: Jugador 1</div>
+      <div id="score">
+        Jugador 1: <span id="p1">0</span> |
+        Jugador 2: <span id="p2">0</span>
+      </div>
+      <button onclick="reiniciarJuego()">🔄 Reiniciar</button>
+    </div>
+
+    <div id="mapa" class="grid-mapa"></div>
+  </main>
+
+  <footer>
+    <p>Trabajo Final de Grado · Desarrollado con ❤️</p>
+  </footer>
+
+  <script src="/js/juego.js"></script>
 </body>
 </html>

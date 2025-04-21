@@ -1,0 +1,99 @@
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: #e8f5e9;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  
+  header {
+    background: #43a047;
+    color: white;
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .descripcion {
+    margin: 5px 0 0;
+    font-size: 14px;
+  }
+  
+  main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+  }
+  
+  #panel {
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  #turno {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+  
+  #score {
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+  
+  button {
+    padding: 10px 20px;
+    background-color: #2e7d32;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #1b5e20;
+  }
+  
+  .grid-mapa {
+    display: grid;
+    grid-template-columns: repeat(5, 80px);
+    grid-template-rows: repeat(5, 80px);
+    gap: 6px;
+  }
+  
+  .territorio {
+    background-color: #c8e6c9;
+    border: 2px solid #81c784;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.2s;
+  }
+  
+  .territorio:hover {
+    transform: scale(1.05);
+  }
+  
+  .jugador1 {
+    background-color: #66bb6a;
+    color: white;
+  }
+  
+  .jugador2 {
+    background-color: #42a5f5;
+    color: white;
+  }
+  
+  footer {
+    text-align: center;
+    padding: 10px;
+    background-color: #c8e6c9;
+    font-size: 12px;
+  }
+  
