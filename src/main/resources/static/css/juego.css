@@ -1,7 +1,7 @@
 body {
     margin: 0;
     font-family: 'Segoe UI', sans-serif;
-    background: #e8f5e9;
+    background: #f0f4c3;
     color: #333;
     display: flex;
     flex-direction: column;
@@ -9,14 +9,14 @@ body {
   }
   
   header {
-    background: #43a047;
+    background-color: #558b2f;
     color: white;
-    text-align: center;
     padding: 20px;
+    text-align: center;
   }
   
   .descripcion {
-    margin: 5px 0 0;
+    margin-top: 5px;
     font-size: 14px;
   }
   
@@ -29,23 +29,14 @@ body {
   }
   
   #panel {
-    margin-bottom: 20px;
     text-align: center;
-  }
-  
-  #turno {
-    font-size: 20px;
-    margin-bottom: 10px;
-  }
-  
-  #score {
-    font-size: 16px;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
   }
   
   button {
+    margin-top: 10px;
     padding: 10px 20px;
-    background-color: #2e7d32;
+    background: #33691e;
     color: white;
     border: none;
     border-radius: 6px;
@@ -53,47 +44,51 @@ body {
   }
   
   button:hover {
-    background-color: #1b5e20;
+    background: #558b2f;
   }
   
-  .grid-mapa {
+  .hex-map {
     display: grid;
-    grid-template-columns: repeat(5, 80px);
-    grid-template-rows: repeat(5, 80px);
-    gap: 6px;
+    grid-template-columns: repeat(6, 100px);
+    grid-gap: 4px;
+    position: relative;
   }
   
-  .territorio {
-    background-color: #c8e6c9;
-    border: 2px solid #81c784;
-    border-radius: 6px;
-    font-weight: bold;
-    font-size: 16px;
-    cursor: pointer;
+  .hex {
+    width: 100px;
+    height: 86.6px;
+    background-color: #c5e1a5;
+    clip-path: polygon(
+      50% 0%, 100% 25%, 100% 75%,
+      50% 100%, 0% 75%, 0% 25%
+    );
     display: flex;
-    justify-content: center;
     align-items: center;
-    transition: transform 0.2s;
+    justify-content: center;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s, background-color 0.3s;
+    position: relative;
   }
   
-  .territorio:hover {
+  .hex:hover {
     transform: scale(1.05);
   }
   
-  .jugador1 {
+  .hex.jugador1 {
     background-color: #66bb6a;
     color: white;
   }
   
-  .jugador2 {
+  .hex.jugador2 {
     background-color: #42a5f5;
     color: white;
   }
   
   footer {
+    background-color: #dcedc8;
     text-align: center;
     padding: 10px;
-    background-color: #c8e6c9;
     font-size: 12px;
   }
   
