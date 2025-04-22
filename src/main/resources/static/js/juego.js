@@ -2,10 +2,14 @@ const mapa = document.getElementById("mapa");
 const turnoTexto = document.getElementById("turno");
 const puntos1 = document.getElementById("p1");
 const puntos2 = document.getElementById("p2");
-const modoIA = document.getElementById("modoIA");
+
+const seleccionadoTexto = document.getElementById("territorioSeleccionado");
+const objetivoTexto = document.getElementById("territorioObjetivo");
+const resultadoTexto = document.getElementById("resultadoAtaque");
 
 let turno = 1;
 let hexes = [];
+let seleccionado = null;
 
 function crearMapa() {
   mapa.innerHTML = "";
@@ -13,11 +17,11 @@ function crearMapa() {
 
   for (let i = 0; i < 36; i++) {
     const hex = document.createElement("div");
-    hex.classList.add("hex");
+    hex.className = "hex";
     hex.dataset.index = i;
     hex.dataset.dueño = "0";
     hex.textContent = i + 1;
-    hex.addEventListener("click", () => conquistar(hex));
+    hex.addEventListener("click", () => manejarClick(hex));
     mapa.appendChild(hex);
     hexes.push(hex);
   }
@@ -29,30 +33,82 @@ function crearMapa() {
   hexes[35].classList.add("jugador2");
 
   turno = 1;
+  seleccionado = null;
   actualizarTodo();
+  limpiarSeleccion();
 }
 
-function conquistar(celda) {
-  if (celda.dataset.dueño !== "0") return;
+function manejarClick(celda) {
+  if (turno !== 1) return; // Solo jugador 1 puede hacer clic
 
+  const dueño = parseInt(celda.dataset.dueño);
   const index = parseInt(celda.dataset.index);
-  const vecinos = obtenerVecinos(index);
-  const puede = vecinos.some(i => hexes[i].dataset.dueño == turno);
 
-  if (!puede) {
-    alert("Solo puedes conquistar hexágonos adyacentes.");
+  if (!seleccionado) {
+    if (dueño === turno) {
+      seleccionado = celda;
+      celda.classList.add("seleccionado");
+      seleccionadoTexto.textContent = celda.textContent;
+      objetivoTexto.textContent = "Ninguno";
+      resultadoTexto.textContent = "-";
+    }
     return;
   }
 
-  celda.dataset.dueño = turno;
-  celda.classList.add(`jugador${turno}`);
-
-  turno = turno === 1 ? 2 : 1;
-  actualizarTodo();
-
-  if (modoIA.checked && turno === 2) {
-    setTimeout(jugadaIA, 500);
+  if (seleccionado === celda) {
+    limpiarSeleccion();
+    return;
   }
+
+  if (dueño !== turno && esAdyacente(seleccionado, celda)) {
+    objetivoTexto.textContent = celda.textContent;
+
+    // ✅ Nuevo paso: preguntar suma al jugador
+    const a = Math.floor(Math.random() * 10) + 1;
+    const b = Math.floor(Math.random() * 10) + 1;
+    const respuesta = prompt(`🧠 ¿Cuánto es ${a} + ${b}?`);
+
+    if (respuesta === null) {
+      resultadoTexto.textContent = "❌ Turno cancelado.";
+      limpiarSeleccion();
+      return;
+    }
+
+    if (parseInt(respuesta) !== a + b) {
+      resultadoTexto.textContent = "❌ Respuesta incorrecta. Turno perdido.";
+      cambiarTurno();
+      limpiarSeleccion();
+      actualizarTodo();
+      setTimeout(jugadaIA, 500);
+      return;
+    }
+
+    // Respuesta correcta → intentar conquistar
+    const exito = Math.random() < 0.6;
+    if (exito) {
+      celda.dataset.dueño = turno;
+      celda.className = `hex jugador${turno} conquista-anim`;
+      resultadoTexto.textContent = "✅ ¡Ataque exitoso!";
+    } else {
+      celda.classList.add("fallo-anim");
+      resultadoTexto.textContent = "❌ Ataque fallido.";
+      setTimeout(() => celda.classList.remove("fallo-anim"), 500);
+    }
+
+    cambiarTurno();
+    limpiarSeleccion();
+    actualizarTodo();
+    setTimeout(jugadaIA, 500);
+
+  } else {
+    resultadoTexto.textContent = "⚠️ No puedes atacar ese hexágono.";
+  }
+}
+
+function esAdyacente(c1, c2) {
+  const i1 = parseInt(c1.dataset.index);
+  const i2 = parseInt(c2.dataset.index);
+  return obtenerVecinos(i1).includes(i2);
 }
 
 function obtenerVecinos(index) {
@@ -61,9 +117,9 @@ function obtenerVecinos(index) {
   const col = index % 6;
 
   const movimientos = [
-    [-1, 0], [1, 0], // arriba, abajo
-    [0, -1], [0, 1], // izquierda, derecha
-    [-1, 1], [1, -1] // diagonales en filas impares
+    [-1, 0], [1, 0],
+    [0, -1], [0, 1],
+    [-1, 1], [1, -1]
   ];
 
   movimientos.forEach(([df, dc]) => {
@@ -86,30 +142,61 @@ function actualizarTodo() {
 
   puntos1.textContent = p1;
   puntos2.textContent = p2;
+
   turnoTexto.textContent = `Turno: Jugador ${turno}`;
+  turnoTexto.classList.add("cambio-turno");
+  setTimeout(() => turnoTexto.classList.remove("cambio-turno"), 500);
 
   if (p1 + p2 === 36) {
     if (p1 > p2) turnoTexto.textContent = "🎉 ¡Jugador 1 gana!";
-    else if (p2 > p1) turnoTexto.textContent = "🎉 ¡Jugador 2 gana!";
+    else if (p2 > p1) turnoTexto.textContent = "🤖 ¡La IA gana!";
     else turnoTexto.textContent = "🤝 ¡Empate!";
   }
 }
 
-function jugadaIA() {
-  const opciones = hexes.filter(t => {
-    if (t.dataset.dueño !== "0") return false;
-    const vecinos = obtenerVecinos(parseInt(t.dataset.index));
-    return vecinos.some(i => hexes[i].dataset.dueño == 2);
-  });
-
-  if (opciones.length > 0) {
-    const aleatorio = opciones[Math.floor(Math.random() * opciones.length)];
-    conquistar(aleatorio);
-  }
+function cambiarTurno() {
+  turno = turno === 1 ? 2 : 1;
 }
 
-function reiniciarJuego() {
-  crearMapa();
+function limpiarSeleccion() {
+  if (seleccionado) {
+    seleccionado.classList.remove("seleccionado");
+  }
+  seleccionado = null;
+  seleccionadoTexto.textContent = "Ninguno";
+  objetivoTexto.textContent = "Ninguno";
+}
+
+function jugadaIA() {
+  if (turno !== 2) return;
+
+  const posibles = hexes.filter(t => {
+    if (t.dataset.dueño !== "2") return false;
+    const vecinos = obtenerVecinos(parseInt(t.dataset.index));
+    return vecinos.some(i => hexes[i].dataset.dueño == "1");
+  });
+
+  if (posibles.length > 0) {
+    const origen = posibles[Math.floor(Math.random() * posibles.length)];
+    const vecinos = obtenerVecinos(parseInt(origen.dataset.index))
+      .map(i => hexes[i])
+      .filter(t => t.dataset.dueño === "1");
+
+    if (vecinos.length > 0) {
+      const objetivo = vecinos[0];
+      const exito = Math.random() < 0.6;
+      if (exito) {
+        objetivo.dataset.dueño = "2";
+        objetivo.className = "hex jugador2 conquista-anim";
+        resultadoTexto.textContent = "🤖 La IA conquistó un territorio.";
+      } else {
+        resultadoTexto.textContent = "🤖 La IA falló el ataque.";
+      }
+    }
+  }
+
+  cambiarTurno();
+  actualizarTodo();
 }
 
 window.onload = crearMapa;
