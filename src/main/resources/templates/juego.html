@@ -5,13 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>IMPERIUM</title>
   <link rel="stylesheet" href="/css/juego.css" />
-  <link rel="icon" href="/assets/LogoBarraNav.png" type="image/icon type">
+  <link rel="icon" href="/assets/LogoBarraNav.png" type="image/png" />
 </head>
 <body>
 
   <header>
-    <h1>🌍 IMPERIUM</h1>
-    <p class="descripcion">Conquista territorios hexagonales y domina el mapa.</p>
+    <div class="contenedor-header">
+      <div class="titulo-logo">
+        <img src="/assets/LogoBarraNav.png" alt="Logo" height="40" />
+        <h1>IMPERIUM</h1>
+      </div>
+      <button id="btnInfo">ℹ️ Información</button>
+    </div>
+    <p class="descripcion">Conquista territorios hexagonales y domina el mapa estratégico.</p>
   </header>
 
   <main>
@@ -44,6 +50,44 @@
   <footer>
     <p>Trabajo Final de Grado · IMPERIUM · Desarrollado con ❤️</p>
   </footer>
+
+  <!-- Modal: Información del juego -->
+  <div id="modalInfo" class="modal oculto">
+    <div class="modal-contenido">
+      <span class="cerrar" id="cerrarInfo">&times;</span>
+      <h2>¿Cómo se juega IMPERIUM?</h2>
+      <p>
+        IMPERIUM es un juego de estrategia por turnos en el que dos jugadores (o un jugador contra la IA)
+        luchan por conquistar un mapa hexagonal. El objetivo es dominar todos los territorios posibles
+        utilizando lógica, planificación y un poco de suerte.
+      </p>
+      <ul>
+        <li>✅ Selecciona uno de tus territorios.</li>
+        <li>🎯 Elige un territorio enemigo adyacente para atacar.</li>
+        <li>🎲 El sistema decidirá el resultado del ataque.</li>
+        <li>🏆 Gana quien conquiste más territorios o elimine al rival.</li>
+      </ul>
+      <p>¡Buena suerte, comandante!</p>
+    </div>
+  </div>
+
+  <!-- Modal: Victoria -->
+  <div id="modalVictoria" class="modal oculto">
+    <div class="modal-contenido">
+      <h2>🎉 ¡Victoria!</h2>
+      <p>Has conquistado el mapa y derrotado a tu oponente. ¡Excelente estrategia!</p>
+      <button onclick="reiniciarJuego()">Jugar de nuevo</button>
+    </div>
+  </div>
+
+  <!-- Modal: Derrota -->
+  <div id="modalDerrota" class="modal oculto">
+    <div class="modal-contenido">
+      <h2>💥 Derrota...</h2>
+      <p>Has perdido el control del mapa. Intenta una nueva estrategia y vuelve a intentarlo.</p>
+      <button onclick="reiniciarJuego()">Reintentar</button>
+    </div>
+  </div>
 
   <script src="/js/juego.js"></script>
 </body>
