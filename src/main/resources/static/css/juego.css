@@ -1,0 +1,241 @@
+  body, h1, h2, p, ul, li, button {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+  }
+
+  main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 2rem;
+  }
+  
+  
+  /* === BODY === */
+  body {
+    background-color: #0D0C1F;
+    color: #F3C677;
+    line-height: 1.6;
+  }
+  
+  /* === HEADER === */
+  header {
+    background-color: #1B0F33;
+    padding: 1rem 2rem;
+    border-bottom: 3px solid #EFA235;
+  }
+  
+  .contenedor-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .titulo-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .titulo-logo h1 {
+    font-size: 2rem;
+    color: #EFA235;
+  }
+  
+  .descripcion {
+    margin-top: 0.5rem;
+    font-style: italic;
+    color: #F3C677;
+  }
+  
+  /* === BOTÓN INFO === */
+  #btnInfo {
+    background-color: #D93C22;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  #btnInfo:hover {
+    background-color: #EFA235;
+  }
+  
+  /* === PANEL DE CONTROL === */
+  #panel {
+    background-color: #1B0F33;
+    color: #F3C677;
+    padding: 1rem;
+    border-left: 4px solid #5B1F64;
+    border-right: 4px solid #5B1F64;
+    text-align: center;
+  }
+  
+  #turno {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #EFA235;
+    margin-bottom: 0.5rem;
+  }
+  
+  #score span {
+    font-weight: bold;
+    color: #F3C677;
+  }
+  
+  #modoIA {
+    margin-top: 0.5rem;
+    margin-right: 5px;
+  }
+  
+  #panel button {
+    margin-top: 0.5rem;
+    padding: 0.4rem 0.8rem;
+    background-color: #5B1F64;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  #panel button:hover {
+    background-color: #EFA235;
+    color: black;
+  }
+  
+  /* === SECCIÓN DE ACCIONES === */
+  #acciones {
+    background-color: #0D0C1F;
+    padding: 1rem 2rem;
+    border-top: 2px solid #D93C22;
+    border-bottom: 2px solid #D93C22;
+  }
+  
+  #acciones h2 {
+    color: #EFA235;
+    margin-bottom: 0.5rem;
+  }
+  
+  #acciones ul {
+    list-style: none;
+    padding-left: 0;
+  }
+  
+  #acciones li {
+    margin-bottom: 0.3rem;
+  }
+  
+  /* === FOOTER === */
+  footer {
+    background-color: #1B0F33;
+    text-align: center;
+    padding: 1rem;
+    font-size: 0.9rem;
+    color: #F3C677;
+    border-top: 2px solid #EFA235;
+  }
+  
+  /* === MODALES === */
+  .modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(13, 12, 31, 0.95);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+  }
+  
+  .modal.oculto {
+    display: none;
+  }
+  
+  .modal-contenido {
+    background-color: #1B0F33;
+    padding: 2rem;
+    border-radius: 10px;
+    max-width: 600px;
+    color: #F3C677;
+    border: 2px solid #EFA235;
+    position: relative;
+    text-align: center;
+  }
+  
+  .modal-contenido h2 {
+    color: #EFA235;
+    margin-bottom: 1rem;
+  }
+  
+  .modal-contenido button {
+    margin-top: 1rem;
+    background-color: #D93C22;
+    color: white;
+    padding: 0.6rem 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .modal-contenido button:hover {
+    background-color: #EFA235;
+    color: black;
+  }
+  
+  .cerrar {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 1.5rem;
+    color: #F3C677;
+    cursor: pointer;
+  }
+
+  .hex-map {
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(10, 80px);
+    grid-auto-rows: 70px;
+    gap: 4px;
+    padding: 20px;
+    background-color: #1B0F33; /* Azul oscuro */
+    border: 2px solid #5B1F64; /* Púrpura profundo */
+    border-radius: 10px;
+  }
+  
+  /* Estilo base de cada hexágono */
+  .hex-tile {
+    width: 80px;
+    height: 70px;
+    background-color: #F3C677; /* Dorado suave (neutral) */
+    clip-path: polygon(
+      25% 0%, 75% 0%,
+      100% 50%, 75% 100%,
+      25% 100%, 0% 50%
+    );
+    border: 2px solid #0D0C1F; /* Borde oscuro */
+    cursor: pointer;
+    transition: transform 0.2s, background-color 0.3s, border-color 0.3s;
+  }
+  
+  /* Hover dinámico */
+  .hex-tile:hover {
+    transform: scale(1.05);
+    background-color: #EFA235; /* Dorado/Naranja intenso */
+    border-color: #D93C22;     /* Rojo brillante */
+  }
+  
+  /* Territorio conquistado */
+  .hex-tile.owned {
+    background-color: #D93C22; /* Rojo brillante */
+    border-color: #F3C677;     /* Dorado suave */
+  }
+  

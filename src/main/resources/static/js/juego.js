@@ -29,3 +29,27 @@ function mostrarDerrota() {
 function reiniciarJuego() {
   location.reload();
 }
+
+const mapa = document.getElementById('mapa');
+  const filas = 10;
+  const columnas = 10;
+
+  function createHex(id) {
+    const hex = document.createElement('div');
+    hex.className = 'hex-tile';
+    hex.dataset.id = id;
+
+    // Interacción: click para cambiar color (simula conquista)
+    hex.addEventListener('click', () => {
+      hex.classList.toggle('owned');
+    });
+
+    return hex;
+  }
+
+  for (let y = 0; y < filas; y++) {
+    for (let x = 0; x < columnas; x++) {
+      const hex = createHex(`${x}-${y}`);
+      mapa.appendChild(hex);
+    }
+  }
