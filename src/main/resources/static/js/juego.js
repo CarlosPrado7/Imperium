@@ -1,55 +1,78 @@
-// Modales generales de victoria, derrota y informacion
-const modalInfo = document.getElementById('modalInfo');
-const modalVictoria = document.getElementById('modalVictoria');
-const modalDerrota = document.getElementById('modalDerrota');
+document.addEventListener('DOMContentLoaded', () => {
+  const selector = document.getElementById('selector-dificultad');
+  const mapa = document.getElementById('mapa');
+  const puntosEl = document.getElementById('puntos');
+  const movimientosEl = document.getElementById('movimientos');
 
-const btnInfo = document.getElementById('btnInfo');
-const cerrarInfo = document.getElementById('cerrarInfo');
+  let puntos = 0;
+  let movimientos = 0;
+  let totalHexagonos = 25;
 
-btnInfo.addEventListener('click', () => {
-  modalInfo.classList.remove('oculto');
-});
+  selector.addEventListener('change', () => {
+    const dificultad = selector.value;
+    mapa.className = 'hex-map';
+    mapa.classList.add(`mapa-${dificultad}`);
+    generarMapa(dificultad);
+  });
 
-cerrarInfo.addEventListener('click', () => {
-  modalInfo.classList.add('oculto');
-});
+  function generarMapa(dificultad) {
+    mapa.innerHTML = '';
+    puntos = 0;
+    movimientos = 0;
+    actualizarEstado();
 
-window.addEventListener('click', (e) => {
-  if (e.target === modalInfo) modalInfo.classList.add('oculto');
-});
+    totalHexagonos = dificultad === 'facil' ? 25 : 100;
 
-function mostrarVictoria() {
-  modalVictoria.classList.remove('oculto');
-}
+    for (let i = 0; i < totalHexagonos; i++) {
+      const hex = document.createElement('div');
+      hex.classList.add('hex');
 
-function mostrarDerrota() {
-  modalDerrota.classList.remove('oculto');
-}
+      // Probabilidades para modo difícil
+      if (dificultad === 'dificil') {
+        const rand = Math.random();
+        if (rand < 0.15) {
+          hex.classList.add('obstaculo');
+          hex.title = 'Obstáculo';
+        } else if (rand < 0.20) {
+          hex.classList.add('bonificacion');
+          hex.title = 'Bonificación';
+        }
+      }
 
-function reiniciarJuego() {
-  location.reload();
-}
+      // Evento de clic
+      hex.addEventListener('click', () => {
+        if (hex.classList.contains('visitado')) return;
 
-const mapa = document.getElementById('mapa');
-  const filas = 10;
-  const columnas = 10;
+        hex.classList.add('visitado');
+        movimientos++;
 
-  function createHex(id) {
-    const hex = document.createElement('div');
-    hex.className = 'hex-tile';
-    hex.dataset.id = id;
+        if (hex.classList.contains('obstaculo')) {
+          puntos -= 5;
+        } else if (hex.classList.contains('bonificacion')) {
+          puntos += 10;
+        } else {
+          puntos += 1;
+        }
 
-    // Interacción: click para cambiar color (simula conquista)
-    hex.addEventListener('click', () => {
-      hex.classList.toggle('owned');
-    });
+        actualizarEstado();
 
-    return hex;
-  }
+        if (movimientos >= totalHexagonos) {
+          setTimeout(() => {
+            alert(`🎉 Juego terminado. Puntos finales: ${puntos}`);
+          }, 100);
+        }
+      });
 
-  for (let y = 0; y < filas; y++) {
-    for (let x = 0; x < columnas; x++) {
-      const hex = createHex(`${x}-${y}`);
       mapa.appendChild(hex);
     }
   }
+
+  function actualizarEstado() {
+    puntosEl.textContent = puntos;
+    movimientosEl.textContent = movimientos;
+  }
+
+  // Inicializa mapa fácil
+  mapa.classList.add('mapa-facil');
+  generarMapa('facil');
+});
