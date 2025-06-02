@@ -142,6 +142,35 @@ body {
   transform: scale(1.05);
 }
 
+#estado-juego {
+  background-color: #0D0C1F;
+  color: #F3C677;
+  border-radius: 8px;
+  padding: 0.8rem 1.5rem;
+  max-width: 400px;
+  margin: 1rem auto;
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: space-between;
+  gap: 3rem;
+  font-size: 1rem;
+}
+
+#estado-juego p {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 120px;
+}
+
+#estado-juego span {
+  color: #EFA235;
+  font-weight: 600;
+  font-size: 1.2rem;
+  margin-top: 0.2rem;
+}
+
 .hex-map {
   display: grid;
   gap: 8px;
@@ -149,7 +178,6 @@ body {
   margin-top: 20px;
 }
 
-/* Ajuste según dificultad */
 .mapa-facil {
   grid-template-columns: repeat(5, 80px);
 }
@@ -174,7 +202,6 @@ body {
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
 }
 
-/* Efecto hover */
 .hex:hover {
   transform: scale(1.05);
   background-color: #F3C677;
@@ -194,13 +221,266 @@ body {
 }
 
 .hex.visitado:not(.obstaculo):not(.bonificacion) {
-  background-color: #4A3A2E; /* un tono más oscuro para hexágonos normales ya visitados */
+  background-color: #4A3A2E;
 }
 
 .hex.obstaculo.visitado {
-  background-color: #D93C22; /* obstáculo - rojo */
+  background-color: #D93C22;
 }
 
 .hex.bonificacion.visitado {
-  background-color: #F3C677; /* bonificación - dorado claro */
+  background-color: #F3C677;
 }
+
+.footer {
+  background-color: #0D0C1F;
+  color: #F3C677;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  padding: 2rem 1rem 1rem;
+  box-shadow: inset 0 5px 15px -5px #5B1F64;
+}
+
+.footer-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: space-between;
+}
+
+.footer-section {
+  flex: 1 1 300px;
+  min-width: 280px;
+}
+
+.footer-section h4 {
+  color: #EFA235;
+  margin-bottom: 0.8rem;
+  font-weight: 700;
+  border-bottom: 2px solid #D93C22;
+  padding-bottom: 0.3rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.footer-section p, 
+.footer-section a {
+  color: #F3C677;
+  font-weight: 400;
+  line-height: 1.5;
+  text-decoration: none;
+}
+
+.footer-section a:hover {
+  color: #EFA235;
+  text-decoration: underline;
+  transition: color 0.3s ease;
+}
+
+.footer-bottom {
+  text-align: center;
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid #5B1F64;
+  font-size: 0.9rem;
+  color: #A091AA;
+}
+
+
+/* Estilo de los modales */
+/* Modal informacion */
+.modal {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(11, 8, 22, 0.9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.modal-contenido {
+  background: linear-gradient(145deg, #1B0F33, #5B1F64);
+  border: 2px solid #EFA235;
+  border-radius: 16px;
+  padding: 30px 25px;
+  width: 90%;
+  max-width: 500px;
+  color: #F3C677;
+  box-shadow: 0 0 20px #D93C22;
+  font-family: 'Segoe UI', sans-serif;
+  text-align: left;
+  position: relative;
+}
+
+.modal-contenido h2 {
+  color: #EFA235;
+  font-size: 24px;
+  margin-bottom: 15px;
+  text-align: center;
+  border-bottom: 1px solid #F3C677;
+  padding-bottom: 10px;
+}
+
+.modal-contenido p,
+.modal-contenido ul {
+  font-size: 16px;
+  line-height: 1.6;
+  margin-bottom: 15px;
+}
+
+.modal-contenido ul {
+  padding-left: 20px;
+}
+
+.modal-contenido li {
+  margin-bottom: 8px;
+  color: #F3C677;
+}
+
+.cerrar {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-size: 28px;
+  color: #D93C22;
+  cursor: pointer;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.cerrar:hover {
+  transform: scale(1.2);
+  color: #EFA235;
+}
+
+.oculto {
+  display: none;
+}
+
+/* Modal victoria y Modal derrota */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(13, 12, 31, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  transition: opacity 0.3s ease;
+}
+
+.oculto {
+  display: none;
+}
+
+.modal-contenido {
+  border-radius: 12px;
+  padding: 2.5rem;
+  text-align: center;
+  max-width: 500px;
+  width: 90%;
+  font-family: 'Segoe UI', sans-serif;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
+  animation: aparecer 0.4s ease-out;
+}
+
+@keyframes aparecer {
+  from {
+    transform: scale(0.85);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/*   Modal de Victoria */
+#modalVictoria .modal-contenido {
+  background: linear-gradient(135deg, #EFA235, #F3C677);
+  border: 4px solid #5B1F64;
+  animation: brillar 1.5s infinite alternate ease-in-out;
+  color: #1B0F33; 
+}
+
+#modalVictoria h2,
+#modalVictoria p {
+  color: #1B0F33;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+#modalVictoria .resumen {
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+@keyframes brillar {
+  0% {
+    box-shadow: 0 0 20px #EFA235;
+  }
+  100% {
+    box-shadow: 0 0 40px #F3C677;
+  }
+}
+
+#modalVictoria button {
+  margin-top: 1rem;
+  background-color: #5B1F64;
+  color: #F3C677;
+  border: none;
+  padding: 0.7rem 1.5rem;
+  font-size: 1rem;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+#modalVictoria button:hover {
+  background-color: #1B0F33;
+}
+
+/*  Modal de Derrota  */
+#modalDerrota .modal-contenido {
+  background-color: #0D0C1F;
+  border: 3px solid #D93C22;
+  color: #F3C677;
+  opacity: 0.98;
+}
+
+#modalDerrota h2 {
+  color: #D93C22;
+  margin-bottom: 1rem;
+}
+
+#modalDerrota p {
+  color: #F3C677;
+  margin-bottom: 1rem;
+  font-weight: 500;
+}
+
+#modalDerrota .resumen {
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+#modalDerrota button {
+  margin-top: 1rem;
+  background-color: #D93C22;
+  color: #0D0C1F;
+  border: none;
+  padding: 0.7rem 1.5rem;
+  font-size: 1rem;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+#modalDerrota button:hover {
+  background-color: #5B1F64;
+  color: #F3C677;
+}
+

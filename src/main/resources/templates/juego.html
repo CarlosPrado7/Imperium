@@ -45,9 +45,24 @@
     </section>
   </main>
 
-  <footer>
-    <p>Trabajo Final de Grado · IMPERIUM · Desarrollado con ❤️</p>
-  </footer>
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-section">
+        <h4>Sobre el Proyecto</h4>
+        <p>IMPERIUM es un juego de estrategia por turnos desarrollado como Trabajo Final de Grado. Busca combinar táctica, diseño visual y diversión.</p>
+      </div>
+
+      <div class="footer-section">
+        <h4>Contacto</h4>
+        <p>Desarrollado por CarlosPrado7</p>
+        <p>Email: <a href="mailto:carlosprado101103@gmail.com">carlosprado101103@gmail.com</a></p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 IMPERIUM · Trabajo Final de Grado</p>
+    </div>
+</footer>
+
 
   <!-- Modal: Información del juego -->
   <div id="modalInfo" class="modal oculto">
@@ -74,6 +89,7 @@
     <div class="modal-contenido">
       <h2>🎉 ¡Victoria!</h2>
       <p>Has conquistado el mapa y derrotado a tu oponente. ¡Excelente estrategia!</p>
+      <p class="resumen"></p>
       <button onclick="location.reload()">Jugar de nuevo</button>
     </div>
   </div>
@@ -83,6 +99,7 @@
     <div class="modal-contenido">
       <h2>💥 Derrota...</h2>
       <p>Has perdido el control del mapa. Intenta una nueva estrategia y vuelve a intentarlo.</p>
+      <p class="resumen"></p>
       <button onclick="location.reload()">Reintentar</button>
     </div>
   </div>

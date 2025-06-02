@@ -77,12 +77,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (movimientos >= totalHexagonos) {
       setTimeout(() => {
-        alert(`🎉 Juego terminado\nJugador: ${puntosJugador} pts\nIA: ${puntosIA} pts`);
+        mostrarResultadoFinal();
       }, 100);
     }
   }
 
-  // Turno del jugador
   mapa.addEventListener('click', (e) => {
     if (esTurnoIA) return;
 
@@ -135,10 +134,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const col = index % columnas;
 
     const posibles = [
-      [fila - 1, col], // arriba
-      [fila + 1, col], // abajo
-      [fila, col - 1], // izquierda
-      [fila, col + 1]  // derecha
+      [fila - 1, col],
+      [fila + 1, col],
+      [fila, col - 1],
+      [fila, col + 1]
     ];
 
     return posibles
@@ -147,10 +146,45 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function actualizarEstado() {
-    puntosEl.textContent = `Jugador: ${puntosJugador} | IA: ${puntosIA}`;
+    puntosEl.textContent = ` Jugador: ${puntosJugador} | IA: ${puntosIA} `;
     movimientosEl.textContent = movimientos;
   }
 
   mapa.classList.add('mapa-facil');
   generarMapa('facil');
+
+  //MODALES Y BOTONES EXTRA
+
+  const btnInfo = document.getElementById('btnInfo');
+  const modalInfo = document.getElementById('modalInfo');
+  const cerrarInfo = document.getElementById('cerrarInfo');
+
+  btnInfo?.addEventListener('click', () => {
+    modalInfo.classList.remove('oculto');
+  });
+
+  cerrarInfo?.addEventListener('click', () => {
+    modalInfo.classList.add('oculto');
+  });
+
+  const btnReiniciar = document.getElementById('btnReiniciar');
+  btnReiniciar?.addEventListener('click', () => {
+    mapa.className = 'hex-map';
+    mapa.classList.add(`mapa-${dificultadActual}`);
+    generarMapa(dificultadActual);
+  });
+
+  const modalVictoria = document.getElementById('modalVictoria');
+  const modalDerrota = document.getElementById('modalDerrota');
+
+  function mostrarResultadoFinal() {
+    const textoFinal = `Jugador: ${puntosJugador} pts<br>IA: ${puntosIA} pts`;
+    if (puntosJugador > puntosIA) {
+      modalVictoria.querySelector('.resumen').innerHTML = textoFinal;
+      modalVictoria.classList.remove('oculto');
+    } else {
+      modalDerrota.querySelector('.resumen').innerHTML = textoFinal;
+      modalDerrota.classList.remove('oculto');
+    }
+  }
 });
