@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let esTurnoIA = false;
   let dificultadActual = 'facil';
   let columnas = 5;
-  let hexagonosDisponibles = 0; // Solo los que no son vacíos
+  let hexagonosDisponibles = 0;
 
   selector.addEventListener('change', () => {
     dificultadActual = selector.value;
@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
     puntosJugador = 0;
     puntosIA = 0;
     movimientos = 0;
-    hexagonosDisponibles = 0;  // Reiniciar contador
+    hexagonosDisponibles = 0;
     actualizarEstado();
 
     totalHexagonos = dificultad === 'facil' ? 25 : 100;
@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       if (!hex.classList.contains('vacio')) {
-        hexagonosDisponibles++; // Contar solo hexágonos NO vacíos
+        hexagonosDisponibles++;
       }
 
       mapa.appendChild(hex);
@@ -73,7 +73,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const hex = hexagonos[index];
     if (!hex || hex.classList.contains('visitado') || hex.classList.contains('vacio') || hex.classList.contains('roto')) return;
 
-    // Comportamiento especial si es bomba
     if (hex.classList.contains('bomba')) {
       hex.classList.add('activada');
       setTimeout(() => {
@@ -90,7 +89,6 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    // Normal
     hex.classList.add('visitado', quien);
     hex.dataset.control = quien;
 
@@ -107,7 +105,6 @@ document.addEventListener('DOMContentLoaded', () => {
     revisarFinDeJuego();
   }
 
-  // Función que destruye adyacentes al explotar la bomba
   function explotarBomba(index) {
     const adyacentes = obtenerAdyacentes(index);
     for (const idx of adyacentes) {
@@ -195,12 +192,10 @@ document.addEventListener('DOMContentLoaded', () => {
     movimientosEl.textContent = movimientos;
   }
 
-  // Cuenta hexágonos rotos (para considerar en fin de juego)
   function contarHexagonosRotos() {
     return hexagonos.filter(h => h.classList.contains('roto')).length;
   }
 
-  // Revisa si el juego terminó para mostrar resultado
   function revisarFinDeJuego() {
     if (movimientos + contarHexagonosRotos() >= hexagonosDisponibles) {
       setTimeout(() => mostrarResultadoFinal(), 100);
@@ -210,7 +205,7 @@ document.addEventListener('DOMContentLoaded', () => {
   mapa.classList.add('mapa-facil');
   generarMapa('facil');
 
-  // MODALES Y BOTONES EXTRA
+  // MODALES
   const btnInfo = document.getElementById('btnInfo');
   const modalInfo = document.getElementById('modalInfo');
   const cerrarInfo = document.getElementById('cerrarInfo');
@@ -228,10 +223,23 @@ document.addEventListener('DOMContentLoaded', () => {
     mapa.className = 'hex-map';
     mapa.classList.add(`mapa-${dificultadActual}`);
     generarMapa(dificultadActual);
+    modalVictoria.classList.add('oculto');
+    modalDerrota.classList.add('oculto');
   });
 
   const modalVictoria = document.getElementById('modalVictoria');
   const modalDerrota = document.getElementById('modalDerrota');
+
+  const cerrarVictoria = modalVictoria?.querySelector('.cerrar');
+  const cerrarDerrota = modalDerrota?.querySelector('.cerrar');
+
+  cerrarVictoria?.addEventListener('click', () => {
+    modalVictoria.classList.add('oculto');
+  });
+
+  cerrarDerrota?.addEventListener('click', () => {
+    modalDerrota.classList.add('oculto');
+  });
 
   function mostrarResultadoFinal() {
     const textoFinal = `Jugador: ${puntosJugador} pts<br>IA: ${puntosIA} pts`;
