@@ -220,7 +220,7 @@ body {
   cursor: default;
 }
 
-.hex.visitado:not(.obstaculo):not(.bonificacion) {
+.hex.visitado:not(.obstaculo):not(.bonificacion):not(.bomba):not(.vacio):not(.roto) {
   background-color: #4A3A2E;
 }
 
@@ -230,6 +230,61 @@ body {
 
 .hex.bonificacion.visitado {
   background-color: #F3C677;
+}
+
+.hex.vacio {
+  background-color: #0D0C1F;
+  opacity: 0.6;
+  border: 2px dashed #1B0F33;
+  cursor: not-allowed;
+}
+
+.hex.bomba {
+  background-color: transparent;
+  box-shadow: none;
+  animation: none;
+  pointer-events: auto;
+  position: relative;
+}
+
+.hex.bomba.activada {
+  background-color: #5B1F64;
+  animation: pulsoBomba 1.2s infinite;
+  box-shadow: 0 0 10px #5B1F64;
+}
+
+.hex.bomba.visitado {
+  background-color: #D93C22;
+  animation: none;
+  box-shadow: none;
+}
+
+.hex.roto {
+  background-color: #000; 
+  opacity: 0.3;
+  border: 1px solid #333;
+  pointer-events: none;
+}
+
+@keyframes pulsoBomba {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 10px #5B1F64;
+  }
+  50% {
+    transform: scale(1.1);
+    box-shadow: 0 0 20px #F3C677; 
+  }
+}
+
+.hex.bomba.explosion {
+  animation: explosionFlash 0.4s ease-in-out;
+}
+
+@keyframes explosionFlash {
+  0% { background-color: #F3C677; transform: scale(1); }
+  50% { background-color: #FF0000; transform: scale(1.2); }
+  100% { background-color: #D93C22; transform: scale(1); }
 }
 
 .footer {
@@ -291,73 +346,97 @@ body {
 /* Estilo de los modales */
 /* Modal informacion */
 .modal {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: rgba(11, 8, 22, 0.9);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 999;
-}
+    position: fixed;
+    inset: 0;
+    background: rgba(13, 12, 31, 0.85);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1500;
+    padding: 20px;
+  }
+  .oculto {
+    display: none;
+  }
 
-.modal-contenido {
-  background: linear-gradient(145deg, #1B0F33, #5B1F64);
-  border: 2px solid #EFA235;
-  border-radius: 16px;
-  padding: 30px 25px;
-  width: 90%;
-  max-width: 500px;
-  color: #F3C677;
-  box-shadow: 0 0 20px #D93C22;
-  font-family: 'Segoe UI', sans-serif;
-  text-align: left;
-  position: relative;
-}
+  .modal-contenido {
+    background: #1B0F33;
+    padding: 20px 25px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px #EFA235;
+    max-width: 460px;
+    width: 100%;
+    max-height: 80vh;
+    overflow-y: auto;
+    color: #F3C677;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.4;
+    position: relative;
+  }
 
-.modal-contenido h2 {
-  color: #EFA235;
-  font-size: 24px;
-  margin-bottom: 15px;
-  text-align: center;
-  border-bottom: 1px solid #F3C677;
-  padding-bottom: 10px;
-}
+  .cerrar {
+    position: absolute;
+    top: 12px;
+    right: 16px;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+    color: #EFA235;
+    user-select: none;
+    transition: color 0.3s ease;
+  }
+  .cerrar:hover {
+    color: #D93C22;
+  }
 
-.modal-contenido p,
-.modal-contenido ul {
-  font-size: 16px;
-  line-height: 1.6;
-  margin-bottom: 15px;
-}
+  /* Títulos */
+  h2 {
+    margin-top: 0;
+    font-size: 1.6rem;
+    color: #EFA235;
+    text-shadow: 0 0 5px #EFA235;
+  }
+  h3 {
+    margin-bottom: 6px;
+    margin-top: 18px;
+    color: #F3C677;
+    border-bottom: 1.5px solid #EFA235;
+    padding-bottom: 3px;
+  }
 
-.modal-contenido ul {
-  padding-left: 20px;
-}
+  p {
+    font-size: 0.9rem;
+    margin-bottom: 12px;
+  }
+  ul {
+    margin-left: 18px;
+    margin-bottom: 12px;
+    font-size: 0.9rem;
+  }
+  ul ul {
+    margin-top: 4px;
+    margin-bottom: 10px;
+  }
+  li {
+    margin-bottom: 8px;
+  }
 
-.modal-contenido li {
-  margin-bottom: 8px;
-  color: #F3C677;
-}
-
-.cerrar {
-  position: absolute;
-  top: 15px;
-  right: 20px;
-  font-size: 28px;
-  color: #D93C22;
-  cursor: pointer;
-  transition: transform 0.2s ease, color 0.2s ease;
-}
-
-.cerrar:hover {
-  transform: scale(1.2);
-  color: #EFA235;
-}
-
-.oculto {
-  display: none;
-}
+  .color-rojo {
+    color: #D93C22;
+    font-weight: 600;
+  }
+  .color-dorado-suave {
+    color: #F3C677;
+    font-weight: 600;
+  }
+  .color-purpura {
+    color: #5B1F64;
+    font-weight: 600;
+  }
+  .color-azul-oscuro {
+    color: #1B0F33;
+    font-weight: 600;
+  }
 
 /* Modal victoria y Modal derrota */
 .modal {

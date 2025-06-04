@@ -64,23 +64,39 @@
 </footer>
 
 
-  <!-- Modal: Información del juego -->
+  <!-- Modal de Información del Juego -->
   <div id="modalInfo" class="modal oculto">
     <div class="modal-contenido">
       <span class="cerrar" id="cerrarInfo">&times;</span>
       <h2>¿Cómo se juega IMPERIUM?</h2>
       <p>
-        IMPERIUM es un juego de estrategia por turnos en el que dos jugadores (o un jugador contra la IA)
-        luchan por conquistar un mapa hexagonal. El objetivo es dominar todos los territorios posibles
-        utilizando lógica, planificación y un poco de suerte.
+        IMPERIUM es un juego de estrategia por turnos en un mapa hexagonal donde dos jugadores, o un jugador contra la IA, compiten para conquistar territorios y acumular puntos.
       </p>
+      <h3>Objetivo</h3>
+      <p>
+        Dominar la mayor cantidad de territorios posibles antes de que el mapa se llene o no haya más movimientos disponibles.
+      </p>
+      <h3>Cómo jugar</h3>
       <ul>
-        <li>✅ Selecciona uno de tus territorios.</li>
-        <li>🎯 Elige un territorio enemigo adyacente para atacar.</li>
-        <li>🎲 El sistema decidirá el resultado del ataque.</li>
-        <li>🏆 Gana quien conquiste más territorios o elimine al rival.</li>
+        <li><strong>Turnos alternos:</strong> Tú y la IA van conquistando hexágonos adyacentes a los territorios que controlan.</li>
+        <li><strong>Conquista:</strong> Haz clic en un hexágono adyacente libre para conquistarlo y sumar puntos.</li>
+        <li><strong>Territorios especiales:</strong>
+          <ul>
+            <li><span style="color:#D93C22;">Obstáculos</span> restan puntos si los conquistas.</li>
+            <li><span style="color:#F3C677;">Bonificaciones</span> otorgan puntos extra.</li>
+            <li><span style="color:#5B1F64;">Bombas</span> explotan al conquistarlas y dañan hexágonos vecinos, destruyéndolos.</li>
+            <li><span style="color:#0D0C1F;">Hexágonos vacíos</span> no pueden ser conquistados.</li>
+          </ul>
+        </li>
+        <li><strong>Fin del juego:</strong> Cuando todos los hexágonos posibles han sido conquistados o destruidos, se muestra quién tiene más puntos y gana.</li>
       </ul>
-      <p>¡Buena suerte, comandante!</p>
+      <h3>Consejos</h3>
+      <ul>
+        <li>Planifica tus movimientos para evitar perder puntos en obstáculos o bombas.</li>
+        <li>Conquista bonificaciones para aumentar tu puntaje rápidamente.</li>
+        <li>Observa los movimientos de la IA para bloquearla y conquistar estratégicamente.</li>
+      </ul>
+      <p>¡Buena suerte, comandante! Que tu estrategia te lleve a la victoria.</p>
     </div>
   </div>
 

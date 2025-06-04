@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let esTurnoIA = false;
   let dificultadActual = 'facil';
   let columnas = 5;
+  let hexagonosDisponibles = 0; // Solo los que no son vacíos
 
   selector.addEventListener('change', () => {
     dificultadActual = selector.value;
@@ -25,6 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
     puntosJugador = 0;
     puntosIA = 0;
     movimientos = 0;
+    hexagonosDisponibles = 0;  // Reiniciar contador
     actualizarEstado();
 
     totalHexagonos = dificultad === 'facil' ? 25 : 100;
@@ -36,15 +38,25 @@ document.addEventListener('DOMContentLoaded', () => {
       hex.classList.add('hex');
       hex.dataset.index = i;
 
-      if (dificultad === 'dificil') {
+      if (dificultad === 'dificil' && i !== 0 && i !== totalHexagonos - 1) {
         const rand = Math.random();
-        if (rand < 0.15) {
+        if (rand < 0.10) {
+          hex.classList.add('vacio');
+          hex.title = 'Vacío';
+        } else if (rand < 0.25) {
           hex.classList.add('obstaculo');
           hex.title = 'Obstáculo';
-        } else if (rand < 0.20) {
+        } else if (rand < 0.30) {
           hex.classList.add('bonificacion');
           hex.title = 'Bonificación';
+        } else if (rand < 0.35) {
+          hex.classList.add('bomba');
+          hex.title = 'Bomba';
         }
+      }
+
+      if (!hex.classList.contains('vacio')) {
+        hexagonosDisponibles++; // Contar solo hexágonos NO vacíos
       }
 
       mapa.appendChild(hex);
@@ -59,8 +71,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function marcarTerritorio(index, quien) {
     const hex = hexagonos[index];
-    if (!hex || hex.classList.contains('visitado')) return;
+    if (!hex || hex.classList.contains('visitado') || hex.classList.contains('vacio') || hex.classList.contains('roto')) return;
 
+    // Comportamiento especial si es bomba
+    if (hex.classList.contains('bomba')) {
+      hex.classList.add('activada');
+      setTimeout(() => {
+        explotarBomba(index);
+        hex.classList.remove('activada');
+        hex.classList.add('visitado', quien);
+        hex.dataset.control = quien;
+
+        quien === 'jugador' ? puntosJugador -= 5 : puntosIA -= 5;
+        movimientos++;
+        actualizarEstado();
+        revisarFinDeJuego();
+      }, 600);
+      return;
+    }
+
+    // Normal
     hex.classList.add('visitado', quien);
     hex.dataset.control = quien;
 
@@ -74,11 +104,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
     movimientos++;
     actualizarEstado();
+    revisarFinDeJuego();
+  }
 
-    if (movimientos >= totalHexagonos) {
-      setTimeout(() => {
-        mostrarResultadoFinal();
-      }, 100);
+  // Función que destruye adyacentes al explotar la bomba
+  function explotarBomba(index) {
+    const adyacentes = obtenerAdyacentes(index);
+    for (const idx of adyacentes) {
+      const h = hexagonos[idx];
+      if (!h.classList.contains('visitado') && !h.classList.contains('vacio')) {
+        h.classList.add('roto');
+        h.dataset.control = 'roto';
+      }
     }
   }
 
@@ -107,7 +144,10 @@ document.addEventListener('DOMContentLoaded', () => {
       const adyacentes = obtenerAdyacentes(index);
       for (const idx of adyacentes) {
         const h = hexagonos[idx];
-        if (!h.classList.contains('visitado') && !h.dataset.control) {
+        if (!h.classList.contains('visitado') &&
+            !h.classList.contains('vacio') &&
+            !h.classList.contains('roto') &&
+            !h.dataset.control) {
           posibles.push(idx);
         }
       }
@@ -122,7 +162,12 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function esAdyacenteConquistable(index, quien) {
-    if (hexagonos[index].classList.contains('visitado')) return false;
+    const hex = hexagonos[index];
+    if (
+      hex.classList.contains('visitado') ||
+      hex.classList.contains('vacio') ||
+      hex.classList.contains('roto')
+    ) return false;
 
     const adyacentes = obtenerAdyacentes(index);
     return adyacentes.some(idx => hexagonos[idx].dataset.control === quien);
@@ -150,11 +195,22 @@ document.addEventListener('DOMContentLoaded', () => {
     movimientosEl.textContent = movimientos;
   }
 
+  // Cuenta hexágonos rotos (para considerar en fin de juego)
+  function contarHexagonosRotos() {
+    return hexagonos.filter(h => h.classList.contains('roto')).length;
+  }
+
+  // Revisa si el juego terminó para mostrar resultado
+  function revisarFinDeJuego() {
+    if (movimientos + contarHexagonosRotos() >= hexagonosDisponibles) {
+      setTimeout(() => mostrarResultadoFinal(), 100);
+    }
+  }
+
   mapa.classList.add('mapa-facil');
   generarMapa('facil');
 
-  //MODALES Y BOTONES EXTRA
-
+  // MODALES Y BOTONES EXTRA
   const btnInfo = document.getElementById('btnInfo');
   const modalInfo = document.getElementById('modalInfo');
   const cerrarInfo = document.getElementById('cerrarInfo');
