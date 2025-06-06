@@ -241,8 +241,30 @@ document.addEventListener('DOMContentLoaded', () => {
     modalDerrota.classList.add('oculto');
   });
 
-  function mostrarResultadoFinal() {
+    function mostrarResultadoFinal() {
     const textoFinal = `Jugador: ${puntosJugador} pts<br>IA: ${puntosIA} pts`;
+
+    const partidaData = {
+      puntosJugador: puntosJugador,
+      puntosIA: puntosIA,
+      movimientos: movimientos,
+      dificultad: dificultadActual.charAt(0).toUpperCase() + dificultadActual.slice(1),
+      usuario: localStorage.getItem("usuario")
+    };
+
+    $.ajax({
+      type: "POST",
+      url: "/partida/guardar",
+      contentType: "application/json",
+      data: JSON.stringify(partidaData),
+      success: function (response) {
+        console.log("Partida guardada con éxito:", response);
+      },
+      error: function (error) {
+        console.error("Error al guardar la partida:", error.responseText);
+      }
+    });
+
     if (puntosJugador > puntosIA) {
       modalVictoria.querySelector('.resumen').innerHTML = textoFinal;
       modalVictoria.classList.remove('oculto');
