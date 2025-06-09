@@ -241,6 +241,8 @@ document.addEventListener('DOMContentLoaded', () => {
     modalDerrota.classList.add('oculto');
   });
 
+  const dni = localStorage.getItem("dni");
+
     function mostrarResultadoFinal() {
     const textoFinal = `Jugador: ${puntosJugador} pts<br>IA: ${puntosIA} pts`;
 
@@ -249,7 +251,7 @@ document.addEventListener('DOMContentLoaded', () => {
       puntosIA: puntosIA,
       movimientos: movimientos,
       dificultad: dificultadActual.charAt(0).toUpperCase() + dificultadActual.slice(1),
-      usuario: localStorage.getItem("usuario")
+      dniJugador: dni
     };
 
     $.ajax({
