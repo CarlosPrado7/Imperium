@@ -69,6 +69,44 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(turnoIA, 500);
   }
 
+  function encontrarTerritoriosEncerrados() {
+    let visitadosJugador = new Set();
+    let visitadosIA = new Set();
+
+    hexagonos.forEach((hex, index) => {
+      if (hex.dataset.control === "jugador") {
+        visitadosJugador.add(index);
+      } else if (hex.dataset.control === "ia") {
+        visitadosIA.add(index);
+      }
+    });
+
+    let encerradosJugador = detectarEncerrados(visitadosJugador, "jugador");
+    let encerradosIA = detectarEncerrados(visitadosIA, "ia");
+
+    // Captura automática de territorio encerrado
+    encerradosJugador.forEach(index => marcarTerritorio(index, "jugador"));
+    encerradosIA.forEach(index => marcarTerritorio(index, "ia"));
+  }
+
+  function detectarEncerrados(territorioVisitado, quien) {
+    let encerrados = new Set();
+
+    hexagonos.forEach((hex, index) => {
+      if (!hex.dataset.control && !hex.classList.contains("vacio") && !hex.classList.contains("roto")) {
+        let adyacentes = obtenerAdyacentes(index);
+
+        let estaEncerrado = adyacentes.every(idx => territorioVisitado.has(idx));
+        
+        if (estaEncerrado) {
+          encerrados.add(index);
+        }
+      }
+    });
+
+    return encerrados;
+  }
+
   function marcarTerritorio(index, quien) {
     const hex = hexagonos[index];
     if (!hex || hex.classList.contains('visitado') || hex.classList.contains('vacio') || hex.classList.contains('roto')) return;
@@ -85,6 +123,7 @@ document.addEventListener('DOMContentLoaded', () => {
         movimientos++;
         actualizarEstado();
         revisarFinDeJuego();
+        encontrarTerritoriosEncerrados(); // Llamada para capturar territorios encerrados
       }, 600);
       return;
     }
@@ -103,6 +142,7 @@ document.addEventListener('DOMContentLoaded', () => {
     movimientos++;
     actualizarEstado();
     revisarFinDeJuego();
+    encontrarTerritoriosEncerrados();
   }
 
   function explotarBomba(index) {

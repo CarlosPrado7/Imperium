@@ -207,6 +207,14 @@ body {
   background-color: #F3C677;
 }
 
+.hex.jugador {
+  background-color: #3AD82D !important;
+}
+
+.hex.ia {
+  background-color: #FF00A2 !important;
+}
+
 .hex.visitado {
   background-color: #EFA235;
   opacity: 1;
