@@ -81,11 +81,34 @@ body {
 
   /*ESTILO PARA EL MAIN Y JUEGO*/
   main {
-  background-color: #0D0C1F;
-  padding: 30px 20px;
+  background: linear-gradient(145deg, #1B0F33, #0D0C1F);
+  position: relative;
+  overflow: hidden;
   color: #F3C677;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  padding: 2rem;
+  border-radius: 12px;
 }
+
+/* Textura por encima del gradiente */
+main::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url('/assets/fondo.png'); /* Cambia por la ruta real */
+  background-size: cover; /* Ajusta al tamaño del contenedor */
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0.15; /* Ajusta para que se mezcle sutilmente */
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Contenido encima de la textura */
+main > * {
+  position: relative;
+  z-index: 1;
+}
+
 
 #desplegableDificultad {
   background-color: #1B0F33;
@@ -248,7 +271,7 @@ body {
 }
 
 .hex.bomba {
-  background-color: transparent;
+  background-color: #EFA235;
   box-shadow: none;
   animation: none;
   pointer-events: auto;
@@ -570,4 +593,37 @@ body {
   background-color: #5B1F64;
   color: #F3C677;
 }
+
+/*Modal informativo espacio conquistado*/
+.modal-especial {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.9);
+  background: linear-gradient(135deg, #1B0F33, #0D0C1F);
+  border: 3px solid #EFA235;
+  box-shadow: 0 0 25px #EFA235aa, 0 0 10px #5B1F64;
+  color: #F3C677; 
+  padding: 20px 35px;
+  border-radius: 16px;
+  font-size: 1.3rem;
+  z-index: 1000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  text-align: center;
+  max-width: 90%;
+  word-wrap: break-word;
+}
+
+.modal-especial.mostrar {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.oculto {
+  display: none;
+}
+
 

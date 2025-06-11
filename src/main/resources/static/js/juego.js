@@ -107,6 +107,23 @@ document.addEventListener('DOMContentLoaded', () => {
     return encerrados;
   }
 
+  function mostrarModalEspecial(mensaje) {
+    const modal = document.getElementById('modalInfoEspecial');
+    const mensajeSpan = document.getElementById('mensajeInfoEspecial');
+
+    if (!modal || !mensajeSpan) return;
+
+    mensajeSpan.textContent = mensaje;
+    modal.classList.remove('oculto');
+    modal.classList.add('mostrar');
+
+    // Ocultar después de 2 segundos
+    setTimeout(() => {
+      modal.classList.remove('mostrar');
+      setTimeout(() => modal.classList.add('oculto'), 400); // Espera a que se desvanezca
+    }, 2000);
+  }
+
   function marcarTerritorio(index, quien) {
     const hex = hexagonos[index];
     if (!hex || hex.classList.contains('visitado') || hex.classList.contains('vacio') || hex.classList.contains('roto')) return;
@@ -123,7 +140,13 @@ document.addEventListener('DOMContentLoaded', () => {
         movimientos++;
         actualizarEstado();
         revisarFinDeJuego();
-        encontrarTerritoriosEncerrados(); // Llamada para capturar territorios encerrados
+        encontrarTerritoriosEncerrados();
+
+        // 👉 Mostrar modal si es jugador
+        if (quien === 'jugador') {
+          mostrarModalEspecial('💣 ¡Has activado una bomba! Pierdes 5 puntos.');
+        }
+
       }, 600);
       return;
     }
@@ -133,8 +156,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (hex.classList.contains('obstaculo')) {
       quien === 'jugador' ? puntosJugador -= 5 : puntosIA -= 5;
+
+      if (quien === 'jugador') {
+        mostrarModalEspecial('⛔ Obstáculo conquistado. Pierdes 5 puntos.');
+      }
+
     } else if (hex.classList.contains('bonificacion')) {
       quien === 'jugador' ? puntosJugador += 10 : puntosIA += 10;
+
+      if (quien === 'jugador') {
+        mostrarModalEspecial('🎁 ¡Bonificación conseguida! Ganas 10 puntos.');
+      }
+
     } else {
       quien === 'jugador' ? puntosJugador += 1 : puntosIA += 1;
     }
@@ -144,6 +177,7 @@ document.addEventListener('DOMContentLoaded', () => {
     revisarFinDeJuego();
     encontrarTerritoriosEncerrados();
   }
+
 
   function explotarBomba(index) {
     const adyacentes = obtenerAdyacentes(index);
